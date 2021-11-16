@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: react_app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - '/app/node_modules'
+      - .:/app
+# To execute a unit test, open a new terminal window and type
+# docker exec -it [container_name] npm run test
