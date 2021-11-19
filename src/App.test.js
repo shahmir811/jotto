@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
 import { shallow } from 'enzyme';
+import { findByTestAttr } from '../tests/testUtils';
 import App from './App';
 
-test('renders a non-empty component without crashing', () => {
-	const wrapper = shallow(<App />);
-	expect(wrapper.exists()).toBe(true);
+const setup = () => {
+	return shallow(<App />);
+};
+
+test('renders without errors', () => {
+	const wrapper = setup();
+	const appComponent = findByTestAttr(wrapper, 'component-app');
+	expect(appComponent).toHaveLength(1);
 });

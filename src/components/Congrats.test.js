@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 
-import Congrats from '../Congrats';
-import { findByTestAttr } from '../../../tests/testUtils';
+import Congrats from './Congrats';
+import { findByTestAttr } from './../../tests/testUtils';
 
 const setup = (props = {}) => {
 	return shallow(<Congrats {...props} />);

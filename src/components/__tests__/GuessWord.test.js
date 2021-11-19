@@ -1,0 +1,97 @@
+import { mount } from 'enzyme';
+
+import App from '../../App';
+import { findByTestAttr } from '../../../tests/testUtils';
+
+const setup = (state = {}) => {
+	// TODO: Apply state
+	const wrapper = mount(<App />);
+
+	// Add value to input field
+	const inputBox = findByTestAttr(wrapper, 'input-box');
+	inputBox.simulate('change', { target: { value: 'train' } });
+
+	// simulate click on submit button
+	const submitButton = findByTestAttr(wrapper, 'submit-button');
+	submitButton.simulate('click', { preventDefault() {} });
+
+	return wrapper;
+};
+
+describe.skip('no word guessed', () => {
+	let wrapper;
+
+	beforeEach(() => {
+		const initialState = {
+			secretWord: 'party',
+			success: false,
+			guessedWords: [],
+		};
+
+		wrapper = setup(initialState);
+	});
+
+	test('creates GuessedWords table with one row', () => {
+		const guessedWordsRow = findByTestAttr(wrapper, 'guessed-words');
+		expect(guessedWordsRow).toHaveLength(1);
+	});
+});
+
+describe.skip('some words guessed', () => {
+	let wrapper;
+	beforeEach(() => {
+		const initialState = {
+			secretWord: 'party',
+			success: false,
+			guessedWords: [{ guessedWord: 'agile', letterMatchCount: 1 }],
+		};
+
+		wrapper = setup(initialState);
+	});
+
+	test('GuessedWords table have more than one row', () => {
+		const guessedWordsRow = findByTestAttr(wrapper, 'guessed-words');
+		expect(guessedWordsRow).toHaveLength(2);
+	});
+});
+
+describe.skip('guess secret words', () => {
+	let wrapper;
+
+	beforeEach(() => {
+		const initialState = {
+			secretWord: 'party',
+			success: false,
+			guessedWords: [{ guessedWord: 'agile', letterMatchCount: 1 }],
+		};
+
+		wrapper = setup(initialState);
+
+		// Add value to input field
+		const inputBox = findByTestAttr(wrapper, 'input-box');
+		const mockEvent = { target: { value: 'party' } };
+		inputBox.simulate('change', mockEvent);
+
+		// simulate click on submit button
+		const submitButton = findByTestAttr(wrapper, 'submit-button');
+		submitButton.simulate('click', { preventDefault() {} });
+	});
+
+	test('add rows to GuessedWords Table', () => {
+		const guessedWordsRow = findByTestAttr(wrapper, 'guessed-words');
+		expect(guessedWordsRow).toHaveLength(3);
+	});
+
+	test('it displays congrats component', () => {
+		const congrats = findByTestAttr(wrapper, 'component-congrats');
+		expect(congrats.text().length).toBeGreaterThan(0);
+	});
+
+	test('does not display input component content', () => {
+		const inputBox = findByTestAttr(wrapper, 'input-box');
+		expect(inputBox.exists()).toBe(false);
+
+		const submitButton = findByTestAttr(wrapper, 'submit-button');
+		expect(submitButton.exists()).toBe(false);
+	});
+});
