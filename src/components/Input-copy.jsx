@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-// import { guessWord } from './actions';
-
-function Input({ secretWord }) {
+const Input = ({ secretWord }) => {
 	const [currentGuess, setCurrentGuess] = React.useState('');
-	// const dispatch = useDispatch();
 	const success = useSelector(state => state.success);
 
 	if (success) {
@@ -16,26 +13,28 @@ function Input({ secretWord }) {
 		<div data-test='component-input'>
 			<form className='form-inline'>
 				<input
-					data-test='input-box'
-					className='mb-2 mx-sm-3'
 					type='text'
-					placeholder='enter guess'
+					data-test='input-box'
+					className='mb-s mx-sm-3'
+					placeholder='Enter guess'
 					value={currentGuess}
-					onChange={event => setCurrentGuess(event.target.value)}
+					onChange={e => setCurrentGuess(e.target.value)}
 				/>
 				<button
+					className='btn btn-primary mb-2'
+					type='submit'
 					data-test='submit-button'
-					onClick={evt => {
-						evt.preventDefault();
+					onClick={e => {
+						e.preventDefault();
 						// TODO: Update guessedWords
 						// TODO: Check against secretWord and update success if needed
-					}}
-					className='btn btn-primary mb-2'>
+						setCurrentGuess('');
+					}}>
 					Submit
 				</button>
 			</form>
 		</div>
 	);
-}
+};
 
 export default Input;
