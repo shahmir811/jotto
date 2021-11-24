@@ -14,7 +14,7 @@ const setup = (initialState = {}, secretWord = 'party') => {
 	);
 };
 
-describe('render', () => {
+describe.skip('render', () => {
 	describe('success is false', () => {
 		let wrapper;
 		beforeEach(() => {
@@ -53,7 +53,7 @@ describe('render', () => {
 	});
 });
 
-describe('state controlled input field', () => {
+describe.skip('state controlled input field', () => {
 	let mockSetCurrentGuess = jest.fn();
 	let wrapper;
 
