@@ -1,11 +1,19 @@
 import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
 import App from '../../App';
-import { findByTestAttr } from '../../../tests/testUtils';
+import { findByTestAttr, storeFactory } from '../../../tests/testUtils';
 
-const setup = (state = {}) => {
-	// TODO: Apply state
-	const wrapper = mount(<App />);
+// activate global mock to make sure getSecretWord doesn't make network call
+jest.mock('../../actions');
+
+const setup = (initialState = {}) => {
+	const store = storeFactory(initialState);
+	const wrapper = mount(
+		<Provider store={store}>
+			<App />
+		</Provider>
+	);
 
 	// Add value to input field
 	const inputBox = findByTestAttr(wrapper, 'input-box');
@@ -18,7 +26,7 @@ const setup = (state = {}) => {
 	return wrapper;
 };
 
-describe.skip('no word guessed', () => {
+describe('no word guessed', () => {
 	let wrapper;
 
 	beforeEach(() => {
@@ -37,7 +45,7 @@ describe.skip('no word guessed', () => {
 	});
 });
 
-describe.skip('some words guessed', () => {
+describe('some words guessed', () => {
 	let wrapper;
 	beforeEach(() => {
 		const initialState = {
@@ -55,7 +63,7 @@ describe.skip('some words guessed', () => {
 	});
 });
 
-describe.skip('guess secret words', () => {
+describe('guess secret words', () => {
 	let wrapper;
 
 	beforeEach(() => {
