@@ -1,7 +1,7 @@
 import { storeFactory } from '../tests/testUtils';
 import { guessWord } from './actions';
 
-describe('guessWord action dispatcher', () => {
+describe.skip('guessWord action dispatcher', () => {
 	const secretWord = 'party';
 	const unsuccessfulGuess = 'train';
 

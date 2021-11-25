@@ -1,6 +1,7 @@
 import moxios from 'moxios';
 
 import { getSecretWord } from '../index';
+import { storeFactory } from '../../../tests/testUtils';
 
 // describe('correctGuess', () => {
 // 	test('returns an action with type `CORRECT_GUESS`', () => {
@@ -21,6 +22,7 @@ describe('getSecretWord', () => {
 	});
 
 	test('secret word is returned', () => {
+		const store = storeFactory();
 		moxios.wait(() => {
 			const request = moxios.requests.mostRecent();
 			request.respondWith({
@@ -31,7 +33,8 @@ describe('getSecretWord', () => {
 
 		// TODO: Update to test app in redux / context section
 
-		return getSecretWord().then(secretWord => {
+		return store.dispatch(getSecretWord()).then(() => {
+			const secretWord = store.getState().secretWord;
 			expect(secretWord).toBe('party');
 		});
 	});

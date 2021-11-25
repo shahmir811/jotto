@@ -45,7 +45,7 @@ describe('no word guessed', () => {
 	});
 });
 
-describe('some words guessed', () => {
+describe.skip('some words guessed', () => {
 	let wrapper;
 	beforeEach(() => {
 		const initialState = {
@@ -63,7 +63,7 @@ describe('some words guessed', () => {
 	});
 });
 
-describe('guess secret words', () => {
+describe.skip('guess secret words', () => {
 	let wrapper;
 
 	beforeEach(() => {

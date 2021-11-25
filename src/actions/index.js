@@ -31,7 +31,12 @@ export const guessWord = guessedWord => {
 	};
 };
 
-export const getSecretWord = () => {
+export const getSecretWord = () => dispatch => {
 	// TODO: Write actual action in redux / context section
-	return axios.get('http://localhost:3030').then(response => response.data);
+	return axios.get('http://localhost:3030').then(response => {
+		dispatch({
+			type: actionTypes.SET_SECRET_WORD,
+			payload: response.data,
+		});
+	});
 };
