@@ -40,12 +40,15 @@ describe("no word guessed", () => {
   });
 
   test("creates GuessedWords table with one row", () => {
-    const guessedWordsRow = findByTestAttr(wrapper, "guessed-words");
+    // console.log(wrapper.debug());  // 2021-11-26 bds: printed out the wrapper to examine
+    // found that the data-test ids were guessed-word, not guessed-words. Updated
+    // the second findByTestAttr accordingly.
+    const guessedWordsRow = findByTestAttr(wrapper, "guessed-word");
     expect(guessedWordsRow).toHaveLength(1);
   });
 });
 
-describe.skip("some words guessed", () => {
+describe("some words guessed", () => {
   let wrapper;
   beforeEach(() => {
     const initialState = {
@@ -58,12 +61,15 @@ describe.skip("some words guessed", () => {
   });
 
   test("GuessedWords table have more than one row", () => {
-    const guessedWordsRow = findByTestAttr(wrapper, "guessed-words");
+    const guessedWordsRow = findByTestAttr(wrapper, "guessed-word");
+    // console.log(wrapper.debug());  // 2021-11-26 bds: printed out the wrapper to examine
+    // found that the data-test ids were guessed-word, not guessed-words. Updated
+    // the second findByTestAttr accordingly.
     expect(guessedWordsRow).toHaveLength(2);
   });
 });
 
-describe.skip("guess secret words", () => {
+describe("guess secret words", () => {
   let wrapper;
 
   beforeEach(() => {
@@ -86,11 +92,20 @@ describe.skip("guess secret words", () => {
   });
 
   test("add rows to GuessedWords Table", () => {
-    const guessedWordsRow = findByTestAttr(wrapper, "guessed-words");
+    // console.log(wrapper.debug());  // 2021-11-26 bds: printed out the wrapper to examine
+    // found that the data-test ids were guessed-word, not guessed-words. Updated
+    // the second findByTestAttr accordingly.
+    const guessedWordsRow = findByTestAttr(wrapper, "guessed-word");
     expect(guessedWordsRow).toHaveLength(3);
   });
 
   test("it displays congrats component", () => {
+    // console.log(wrapper.debug()); // 2021-11-26 bds: printed out the wrapper to examine
+    // the congrats component did not have any text, because the success prop was false:
+    // <Congrats success={false}>
+    //   <div data-test="component-congrats" />
+    // </Congrats>
+    // fixed hard-coded false prop value in App.js
     const congrats = findByTestAttr(wrapper, "component-congrats");
     expect(congrats.text().length).toBeGreaterThan(0);
   });

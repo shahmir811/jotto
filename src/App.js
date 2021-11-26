@@ -23,7 +23,9 @@ const App = () => {
     <div data-test="component-app" className="container">
       <h1>Jotto</h1>
       <div>The secret word is {secretWord}</div>
-      <Congrats success={false} />
+      {/* 2021-11-26 bds
+			false was hard-coded. Should come from state */}
+      <Congrats success={success} />
       <Input success={success} secretWord={secretWord} />
       <GuessedWords guessedWords={guessedWords} />
     </div>

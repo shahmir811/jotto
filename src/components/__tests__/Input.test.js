@@ -6,7 +6,9 @@ import Input from "../Input";
 import { findByTestAttr, storeFactory } from "../../../tests/testUtils";
 
 const setup = (initialState = {}, secretWord = "party") => {
-  const store = storeFactory();
+  // 2021-11-26 bds
+  // updated to include initialState in the store created from storeFactory
+  const store = storeFactory(initialState);
   return mount(
     <Provider store={store}>
       <Input secretWord={secretWord} />
@@ -14,7 +16,7 @@ const setup = (initialState = {}, secretWord = "party") => {
   );
 };
 
-describe.skip("render", () => {
+describe("render", () => {
   describe("success is false", () => {
     let wrapper;
     beforeEach(() => {
@@ -53,7 +55,7 @@ describe.skip("render", () => {
   });
 });
 
-describe.skip("state controlled input field", () => {
+describe("state controlled input field", () => {
   let mockSetCurrentGuess = jest.fn();
   let wrapper;
 
